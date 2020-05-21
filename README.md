@@ -1,2 +1,2 @@
 # mitiquiz
-Mitiquiz - Um Quiz para Simbolismo e Mitos
+Mitiquiz - A Quiz for Symbolism and Myths
