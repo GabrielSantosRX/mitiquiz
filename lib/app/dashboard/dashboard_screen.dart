@@ -11,17 +11,31 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _currentIndex = 0;
+  int _nextIndex = 0;
+  bool _backgroundVisible = true;
+
   final List<QuizCard> _quizCards = [
-    QuizCard(title: 'Grecia Antiga', subtitle: 'Athena, Zeus, Hades, ...', filename: 'greek'),
     QuizCard(title: 'Egito Antigo', subtitle: 'Isis, Osiris, Horus, ...', filename: 'egypt'),
-    // QuizCard(title: 'Roma Antiga', subtitle: 'Anubis', filename: 'egypt'),
+    QuizCard(title: 'Grecia Antiga', subtitle: 'Athena, Zeus, Hades, ...', filename: 'greek'),
+    QuizCard(title: 'Roma Antiga', subtitle: 'Minerva, Jupiter, Marte, ...', filename: 'rome'),
+    QuizCard(title: 'Nordica', subtitle: 'Frigga, Odin, Thor, ...', filename: 'nordic'),
     // QuizCard(title: 'Africana', subtitle: 'Anubis', filename: 'egypt'),
-    // QuizCard(title: 'Nordica', subtitle: 'Anubis', filename: 'egypt'),
   ];
 
   void changeBackground(int index, CarouselPageChangedReason reason) {
-    _currentIndex = index;
-    print('-- ${_quizCards[index].filename}');
+    if (index != _currentIndex) {
+      setState(() {
+        _backgroundVisible = false;
+        _nextIndex = index;
+      });
+    }
+  }
+
+  void onEndBackgroundEffect() {
+    setState(() {
+      _backgroundVisible = true;
+      _currentIndex = _nextIndex;
+    });
   }
 
   @override
@@ -33,23 +47,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     return Stack(
       children: <Widget>[
-        Image.asset(
-          'assets/${_quizCards[_currentIndex].filename}.png',
-          height: MediaQuery.of(context).size.height,
-          fit: BoxFit.fill,
+        AnimatedOpacity(
+          opacity: _backgroundVisible ? 1.0 : 0.0,
+          duration: const Duration(milliseconds: 369),
+          onEnd: onEndBackgroundEffect,
+          child: Image.asset(
+            'assets/${_quizCards[_currentIndex].filename}.png',
+            height: MediaQuery.of(context).size.height,
+            fit: BoxFit.fill,
+          ),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            // ListTile(
-            //   leading: Text(
-            //     'text asdf',
-            //     style: TextStyle(fontSize: 16.0),
-            //   ),
-            //   title: Text('Login'),
-            //   subtitle: Text('adsf'),
-            //   trailing: Icon(Icons.arrow_back_ios),
-            // ),
             const SizedBox(height: 1),
             const SizedBox(height: 1),
             CarouselSlider(
