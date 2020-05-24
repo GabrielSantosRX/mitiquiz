@@ -1,5 +1,5 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:mitiquiz/core/constants.dart';
+import 'package:mitiquiz/core/constants.dart' as constants;
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:mitiquiz/core/connectivity.dart';
 import 'package:get_it/get_it.dart';
@@ -15,7 +15,7 @@ Future<void> init() async {
   //! External
   final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
-  final box = await Hive.openBox(Constants.hiveBox);
+  final box = await Hive.openBox(constants.hiveBox);
   getIt.registerLazySingleton(() => box);
   getIt.registerLazySingleton(() => Dio());
   getIt.registerLazySingleton(() => DataConnectionChecker());

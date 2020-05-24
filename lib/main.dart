@@ -1,5 +1,5 @@
-import 'package:mitiquiz/app/dashboard/DashboardScreen.dart';
-import 'package:mitiquiz/core/constants.dart';
+import 'package:mitiquiz/app/startup_navigator/startup_navigator.dart';
+import 'package:mitiquiz/core/constants.dart' as constants;
 import 'package:mitiquiz/injection_container.dart' as get_it;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,15 +19,15 @@ class MitiquizApp extends StatelessWidget {
       SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
     return MaterialApp(
-      title: Constants.appName,
+      title: constants.appName,
       theme: ThemeData(
-        primaryColor: Constants.colorPrimary,
-        accentColor: Constants.colorPrimary,
+        primaryColor: constants.colorPrimary,
+        accentColor: constants.colorPrimary,
         cupertinoOverrideTheme: const CupertinoThemeData(brightness: Brightness.light),
       ),
-      initialRoute: Constants.dashboardScreen,
+      initialRoute: constants.startupNavigator,
       routes: {
-        Constants.dashboardScreen: (context) => DashboardScreen(),
+        constants.startupNavigator: (context) => StartupNavigator(),
       },
     );
   }
